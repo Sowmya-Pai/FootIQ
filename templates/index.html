@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FootIQ | Football Analytics</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">⚽ FootIQ</div>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="#predict">Match Prediction</a>
+            <a href="#chat">AI Assistant</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+
+            <p class="eyebrow">FOOTBALL MEETS ARTIFICIAL INTELLIGENCE</p>
+
+            <h1>
+                Understand the Game.<br>
+                <span>Predict the Outcome.</span>
+            </h1>
+
+            <p class="hero-description">
+                Explore football match predictions powered by
+                Machine Learning, historical analytics and AI.
+            </p>
+
+            <a href="#predict" class="primary-button">
+                Predict a Match →
+            </a>
+
+        </section>
+
+
+        <!-- MATCH PREDICTION SECTION -->
+        <section class="prediction-section" id="predict">
+
+            <div class="section-heading">
+
+                <p class="eyebrow">MATCH ANALYSIS</p>
+
+                <h2>Predict Your Match</h2>
+
+                <p>
+                    Select two teams and a match date to generate a prediction.
+                </p>
+
+            </div>
+
+
+            <div class="prediction-card">
+
+                <div class="team-selection">
+
+                    <div class="form-group">
+
+                        <label for="home-team">HOME TEAM</label>
+
+                        <select id="home-team">
+
+                            <option value="">Select Home Team</option>
+
+                            {% for team in teams %}
+                            <option value="{{ team }}">{{ team }}</option>
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="vs">VS</div>
+
+
+                    <div class="form-group">
+
+                        <label for="away-team">AWAY TEAM</label>
+
+                        <select id="away-team">
+
+                            <option value="">Select Away Team</option>
+
+                            {% for team in teams %}
+                            <option value="{{ team }}">{{ team }}</option>
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group date-group">
+
+                    <label for="match-date">MATCH DATE</label>
+
+                    <input
+                        type="date"
+                        id="match-date"
+                        min="1993-08-14"
+                        max="2022-04-11"
+                    >
+
+                    <small>
+                        Historical demonstration data available through
+                        10 April 2022.
+                    </small>
+
+                </div>
+
+
+                <button
+                    id="predict-button"
+                    class="primary-button predict-button"
+                >
+                    Generate Prediction →
+                </button>
+
+                <p id="error-message" class="error-message"></p>
+
+            </div>
+
+
+            <!-- PREDICTION RESULTS -->
+            <div id="result-section" class="result-section hidden">
+
+                <h2>Match Prediction Results</h2>
+
+                <div class="result-card">
+
+                    <p id="match-title" class="match-title"></p>
+
+                    <h3 id="predicted-outcome"></h3>
+
+                    <p class="result-subtitle">
+                        Predicted outcome probabilities
+                    </p>
+
+                    <div id="probability-results"></div>
+
+                    <p id="elo-result" class="elo-result"></p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTIQ AI CHAT SECTION -->
+        <section class="chat-section" id="chat">
+
+            <div class="section-heading">
+
+                <p class="eyebrow">YOUR FOOTBALL KNOWLEDGE ASSISTANT</p>
+
+                <h2>Ask FootIQ AI</h2>
+
+                <p>
+                    Explore football tactics, historical statistics
+                    and machine learning predictions.
+                </p>
+
+            </div>
+
+
+            <div class="chat-container">
+
+                <!-- CHAT HEADER -->
+                <div class="chat-header">
+
+                    <div class="chat-avatar">⚽</div>
+
+                    <div class="chat-header-info">
+
+                        <h3>FootIQ Assistant</h3>
+
+                        <p>
+                            <span class="online-dot"></span>
+                            AI Football Analyst
+                        </p>
+
+                    </div>
+
+                    <button
+                        id="clear-chat-button"
+                        class="clear-chat-button"
+                        type="button"
+                    >
+                        Clear Chat
+                    </button>
+
+                </div>
+
+
+                <!-- CHAT MESSAGES -->
+                <div
+                    id="chat-messages"
+                    class="chat-messages"
+                    aria-live="polite"
+                >
+
+                    <div class="message assistant-message">
+
+                        <div class="message-avatar">⚽</div>
+
+                        <div class="message-content">
+
+                            <p>
+                                Hello! I'm FootIQ, your intelligent
+                                football analytics assistant.
+                            </p>
+
+                            <p>
+                                Ask me about football tactics, team
+                                statistics, historical matches or
+                                machine learning predictions.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CHAT INPUT -->
+                <div class="chat-input-area">
+
+                    <textarea
+                        id="chat-input"
+                        placeholder="Ask FootIQ anything about football..."
+                        rows="2"
+                        maxlength="2000"
+                        aria-label="Enter your football question"
+                    ></textarea>
+
+                    <button
+                        id="send-chat-button"
+                        class="primary-button send-chat-button"
+                        type="button"
+                    >
+                        Send ↑
+                    </button>
+
+                </div>
+
+                <p class="chat-hint">
+                    Press Enter to send · Shift + Enter for a new line
+                </p>
+
+                <p class="chat-disclaimer">
+                    FootIQ uses historical English Premier League data
+                    ending 10 April 2022. Predictions are estimates,
+                    not guaranteed results.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT SECTION -->
+        <section class="about-section" id="about">
+
+            <p class="eyebrow">ABOUT THE PROJECT</p>
+
+            <h2>What is FootIQ?</h2>
+
+            <p>
+                FootIQ is an AI-powered football analytics platform
+                that combines historical match data, machine learning,
+                team performance indicators, Elo ratings, SQL analytics
+                and Retrieval-Augmented Generation (RAG) to explore
+                football matches and generate intelligent insights.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            FootIQ | AI-Powered Football Match Prediction and Analytics
+        </p>
+
+    </footer>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

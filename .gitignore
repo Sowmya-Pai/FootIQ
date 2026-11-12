@@ -1,0 +1,22 @@
+# API keys and environment variables
+.env
+
+# Python cache
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# ChromaDB generated files
+rag/vector_store/
+
+# IDE files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Large experimental models - keep locally, exclude from GitHub
+Datasets/footIQ_random_forest.pkl
+Datasets/footIQ_random_forest_v2.pkl
+Datasets/footIQ_random_forest_v3.pkl
+Datasets/footIQ_random_forest_v4.pkl
